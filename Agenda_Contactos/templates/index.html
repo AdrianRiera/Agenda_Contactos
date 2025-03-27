@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda de Contactos</title>
+</head>
+<body>
+    <h1>Lista de Contactos</h1>
+    <button onclick="window.location.href='/agregar'">Agregar Contacto</button>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Fecha de Creación</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contacto in contactos %}
+            <tr>
+                <td>{{ contacto.id }}</td>
+                <td>{{ contacto.name }}</td>
+                <td>{{ contacto.email }}</td>
+                <td>{{ contacto.telefono }}</td>
+                <td>{{ contacto.fecha_creacion }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
