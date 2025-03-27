@@ -4,32 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda de Contactos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <h1>Lista de Contactos</h1>
-    <button onclick="window.location.href='/agregar'">Agregar Contacto</button>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Teléfono</th>
-                <th>Fecha de Creación</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for contacto in contactos %}
-            <tr>
-                <td>{{ contacto.id }}</td>
-                <td>{{ contacto.name }}</td>
-                <td>{{ contacto.email }}</td>
-                <td>{{ contacto.telefono }}</td>
-                <td>{{ contacto.fecha_creacion }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="container">
+        <h1>Agenda de Contactos</h1>
+
+        <div class="button-container">
+            <a href="{{ url_for('agregar_contacto') }}" class="add-button">Agregar Contacto</a>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Fecha Creación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contacto in contactos %}
+                    <tr>
+                        <td>{{ contacto.id }}</td>
+                        <td>{{ contacto.name }}</td>
+                        <td>{{ contacto.email }}</td>
+                        <td>{{ contacto.telefono }}</td>
+                        <td>{{ contacto.fecha_creacion }}</td>
+                        <td class="action-buttons">
+                            <a href="{{ url_for('editar_contacto', id=contacto.id) }}" class="edit-button">Editar</a>
+                            <form action="{{ url_for('eliminar_contacto', id=contacto.id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este contacto?');">
+                                <button type="submit" class="delete-button">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </body>
 </html>

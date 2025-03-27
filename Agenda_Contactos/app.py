@@ -27,6 +27,13 @@ def lista_agenda():
     return render_template('index.html', contactos=contactos)
 
 
+@app.route('/eliminar/<int:id>', methods=['POST'])
+def eliminar_contacto(id):
+    contacto = Contacto.query.get_or_404(id)
+    db.session.delete(contacto)
+    db.session.commit()
+    return redirect(url_for('lista_agenda'))
+
 @app.route('/agregar', methods=['GET', 'POST'])
 def agregar_contacto():
     if request.method == 'POST':
@@ -41,6 +48,21 @@ def agregar_contacto():
         return redirect(url_for('lista_agenda'))
 
     return render_template('agregar.html')
+
+
+@app.route('/editar/<int:id>', methods=['GET', 'POST'])
+def editar_contacto(id):
+    contacto = Contacto.query.get_or_404(id)
+
+    if request.method == 'POST':
+        contacto.name = request.form['name']
+        contacto.email = request.form['email']
+        contacto.telefono = request.form['telefono']
+
+        db.session.commit()
+        return redirect(url_for('lista_agenda'))
+
+    return render_template('editar.html', contacto=contacto)
 
 
 if __name__ == '__main__':
