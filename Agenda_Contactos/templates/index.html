@@ -34,7 +34,7 @@
                         <td>{{ contacto.name }}</td>
                         <td>{{ contacto.email }}</td>
                         <td>{{ contacto.telefono }}</td>
-                        <td>{{ contacto.fecha_creacion }}</td>
+                        <td><p class="fecha_creacion">{{ contacto.fecha_creacion }}</p></td>
                         <td class="action-buttons">
                             <a href="{{ url_for('editar_contacto', id=contacto.id) }}" class="edit-button">Editar</a>
                             <form action="{{ url_for('eliminar_contacto', id=contacto.id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este contacto?');">
